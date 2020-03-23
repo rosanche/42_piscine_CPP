@@ -77,9 +77,8 @@ void        choose_index(Contact con, int i)
     index -= 48;
     if ((int)index > 0 && (int)index < i)
     {
-        std::cout << con.info[1][1] << std::endl;
         for (n = 0; n < 11; n++)
-            std::cout << con.info[0][n] << ": " << con.info[index][n] << std::endl;
+            std::cout << con.info[0][n] << ": " << con.info[(int)index][n] << std::endl;
     }
     else
     {
