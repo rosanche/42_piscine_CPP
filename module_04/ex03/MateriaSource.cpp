@@ -46,5 +46,6 @@ AMateria* MateriaSource::createMateria(std::string const & type)
             return (mater);
         }
     }
+    return (NULL);
 }
 
