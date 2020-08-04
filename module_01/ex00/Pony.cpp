@@ -25,7 +25,9 @@ std::string Pony::get_favfood() { return (this->favfood); }
 std::string Pony::get_owner() { return (this->owner); }
 int Pony::get_speed() { return (this->speed); }
 
-Pony::~Pony() {};
+Pony::~Pony() {
+    std::cout << "Pony is dead!" << std::endl;
+};
 
 void        ponyOnTheStack()
 {
