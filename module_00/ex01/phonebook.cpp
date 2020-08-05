@@ -61,27 +61,27 @@ void     Contact::add(int i)
     for (n = 0; n < 11; n++)
     {
         std::cout << std::endl << "Choose a " << info[0][n] << std::endl;
-        std::cin >> info[i][n];
+        std::getline(std::cin, info[i][n]);
         std::cout << "The " << info[0][n] << " is " << info[i][n] << std::endl;
     }
 }
 
 void        Contact::choose_index(int i)
 {
-    char index;
+    std::string index;
     int n;
 
     std::cout << "Type a index's contact to get its informations" << std::endl;
-    std::cin >> index;
-    index -= 48;
-    if ((int)index > 0 && (int)index < i)
+    std::getline(std::cin, index);
+    index[0] -= 48;
+    if ((int)index[0] > 0 && (int)index[0] < i && !index[2])
     {
         for (n = 0; n < 11; n++)
-            std::cout << info[0][n] << ": " << info[(int)index][n] << std::endl;
+            std::cout << info[0][n] << ": " << info[(int)index[0]][n] << std::endl;
     }
     else
     {
-        index = 0;
+        index[0] = 0;
         std::cout << "Invalid index, search again to get information about a contact"
         << std::endl;
     }
@@ -94,7 +94,7 @@ int     last_contact(int i)
     if (i >= 9)
     {
         std::cout << "You can't add a new contact, do you want to change the 8th for this one? (yes)" << std::endl;
-        std::cin >> res;
+        std::getline(std::cin, res);
         if (res == "yes")
             return (8);
         else
@@ -116,7 +116,7 @@ int     main()
     while (true)
     {
         std::cout << "Choose a command between ADD, SEARCH or EXIT" << std::endl;
-        std::cin >> choice;
+        std::getline(std::cin, choice);
         if (choice == "ADD")
         {
             if ((i = last_contact(i)) <= 8)

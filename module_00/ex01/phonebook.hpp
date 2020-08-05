@@ -2,6 +2,8 @@
 # define PHONEBOOK_HPP
 
 #include <iostream>
+#include <string>
+#include <sstream>
 
 class Contact {
     private:
