@@ -4,8 +4,14 @@
 #include <iostream>
 
 class Contact {
-    public:
+    private:
         std::string info[9][11];
+
+    public:
+        Contact();
+        void    search(int e);
+        void    choose_index(int i);
+        void    add(int i);
 };
 
 #endif

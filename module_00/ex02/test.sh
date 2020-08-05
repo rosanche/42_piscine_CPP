@@ -9,7 +9,7 @@ if test -f "$file"; then
 	
 	diff should_output.txt user_output.txt
 	
-	# rm -f should_output.txt user_output.txt
+	rm -f should_output.txt user_output.txt
 else
 	echo File \'$file\' does not exists.
 	exit 1

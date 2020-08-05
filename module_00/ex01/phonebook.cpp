@@ -1,18 +1,18 @@
 #include "phonebook.hpp"
 
-void    init(std::string *info)
+Contact::Contact()
 {
-    info[0] = "first name";
-    info[1] = "last name";
-    info[2] = "nick name";
-    info[3] = "login";
-    info[4] = "postal address";
-    info[5] = "email address";
-    info[6] = "phone number";
-    info[7] = "birthday date";
-    info[8] = "favorite meal";
-    info[9] = "underwear color";
-    info[10] = "darkest secret";
+    info[0][0] = "first name";
+    info[0][1] = "last name";
+    info[0][2] = "nick name";
+    info[0][3] = "login";
+    info[0][4] = "postal address";
+    info[0][5] = "email address";
+    info[0][6] = "phone number";
+    info[0][7] = "birthday date";
+    info[0][8] = "favorite meal";
+    info[0][9] = "underwear color";
+    info[0][10] = "darkest secret";
 }
 
 int     ft_strlen(std::string s)
@@ -27,7 +27,7 @@ int     ft_strlen(std::string s)
     return (0);
 }
 
-void    search(Contact con, int e)
+void    Contact::search(int e)
 {
     int i;
     int n;
@@ -38,36 +38,35 @@ void    search(Contact con, int e)
         std::cout << "         " << i << "|";
         for (n = 0; n < 4; n++)
         {
-            for (v = 0; v < ft_strlen(con.info[i][n]); v++)
+            for (v = 0; v < ft_strlen(info[i][n]); v++)
                 std::cout << " ";
-            if (!ft_strlen(con.info[i][n]))
+            if (!ft_strlen(info[i][n]))
             {
                 for (v = 0; v < 9; v++)
-                    std::cout << con.info[i][n][v];
+                    std::cout << info[i][n][v];
                 std::cout << ".";
             }
             else
-                std::cout << con.info[i][n];
+                std::cout << info[i][n];
             n != 3 ? std::cout << "|" : std::cout << std::endl;
         }
     }
     std::cout << std::endl;
 }
 
-Contact     add(Contact con, int i)
+void     Contact::add(int i)
 {
     int n;
 
     for (n = 0; n < 11; n++)
     {
-        std::cout << std::endl << "Choose a " << con.info[0][n] << std::endl;
-        std::cin >> con.info[i][n];
-        std::cout << "The " << con.info[0][n] << " is " << con.info[i][n] << std::endl;
+        std::cout << std::endl << "Choose a " << info[0][n] << std::endl;
+        std::cin >> info[i][n];
+        std::cout << "The " << info[0][n] << " is " << info[i][n] << std::endl;
     }
-    return (con);
 }
 
-void        choose_index(Contact con, int i)
+void        Contact::choose_index(int i)
 {
     char index;
     int n;
@@ -78,7 +77,7 @@ void        choose_index(Contact con, int i)
     if ((int)index > 0 && (int)index < i)
     {
         for (n = 0; n < 11; n++)
-            std::cout << con.info[0][n] << ": " << con.info[(int)index][n] << std::endl;
+            std::cout << info[0][n] << ": " << info[(int)index][n] << std::endl;
     }
     else
     {
@@ -114,7 +113,6 @@ int     main()
     int i;
 
     i = 1;
-    init(con.info[0]);
     while (true)
     {
         std::cout << "Choose a command between ADD, SEARCH or EXIT" << std::endl;
@@ -122,14 +120,14 @@ int     main()
         if (choice == "ADD")
         {
             if ((i = last_contact(i)) <= 8)
-                con = add(con, i);
+                con.add(i);
             std::cout << "Your contact has been created!" << std::endl;
             i++;
         }
         else if (choice == "SEARCH")
         {
-            search(con, i);
-            choose_index(con, i);
+            con.search(i);
+            con.choose_index(i);
         }
         else if (choice == "EXIT")
             return (0);
