@@ -23,5 +23,5 @@ Zombie    *ZombieEvent::randomChump() {
     random = rand() % 9;
     newZ = ZombieEvent::newZombie(zomb[random]);
     newZ->announce();
-    return (ZombieEvent::newZombie(zomb[random]));
+    return (newZ);
 }

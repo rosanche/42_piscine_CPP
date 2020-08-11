@@ -74,7 +74,7 @@ void        Contact::choose_index(int i)
     std::cout << "Type a index's contact to get its informations" << std::endl;
     std::getline(std::cin, index);
     index[0] -= 48;
-    if ((int)index[0] > 0 && (int)index[0] < i && !index[2])
+    if ((int)index[0] > 0 && (int)index[0] < i)
     {
         for (n = 0; n < 11; n++)
             std::cout << info[0][n] << ": " << info[(int)index[0]][n] << std::endl;
