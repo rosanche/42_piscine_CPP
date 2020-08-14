@@ -33,7 +33,7 @@ void    Contact::search(int e)
     int n;
     int v;
 
-    for (i = 0; i < e; i++)
+    for (i = 0; i < e && i < 9; i++)
     {
         std::cout << "         " << i << "|";
         for (n = 0; n < 4; n++)
@@ -120,8 +120,10 @@ int     main()
         if (choice == "ADD")
         {
             if ((i = last_contact(i)) <= 8)
+            {
                 con.add(i);
-            std::cout << "Your contact has been created!" << std::endl;
+                std::cout << "Your contact has been created!" << std::endl;
+            }
             i++;
         }
         else if (choice == "SEARCH")
