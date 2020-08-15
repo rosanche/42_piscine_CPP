@@ -28,16 +28,3 @@ int Pony::get_speed() { return (this->speed); }
 Pony::~Pony() {
     std::cout << "Pony is dead!" << std::endl;
 };
-
-void        ponyOnTheStack()
-{
-    Pony ponyStack(15, "Prout", "blue", "Romain", "bacon");
-    ponyStack.speech();
-}
-
-void ponyOnTheHeap()
-{
-    Pony *ponyHeap = new Pony(15, "Prout", "blue", "Romain", "bacon");
-    ponyHeap->speech();
-    delete ponyHeap;
-}

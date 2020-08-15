@@ -2,7 +2,7 @@
 
 int main()
 {
-    ZombieHorde hord;
+    ZombieHorde hord(2);
 
     hord.announce();
 }

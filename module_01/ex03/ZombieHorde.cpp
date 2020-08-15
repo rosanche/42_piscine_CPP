@@ -1,8 +1,13 @@
 #include "ZombieHorde.hpp"
 
-ZombieHorde::ZombieHorde() { }
+ZombieHorde::ZombieHorde() { 
+    this->n = 0;
+}
 
-ZombieHorde::~ZombieHorde() { delete [] this->zombies; }
+ZombieHorde::~ZombieHorde() { 
+    if (n > 0)
+        delete [] this->zombies; 
+}
 
 ZombieHorde::ZombieHorde(int n) 
 { 
