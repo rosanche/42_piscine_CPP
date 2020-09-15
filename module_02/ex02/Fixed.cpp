@@ -39,10 +39,6 @@ Fixed &Fixed::operator=(const Fixed &op)
 bool Fixed::operator<(Fixed const &op) const
 {
     return (this->pfix < op.getRawBits());
-   /*  if (this->pfix < op.getRawBits())
-        return (true);
-    else
-        return (false) */
 }
 
 bool Fixed::operator>(Fixed const &op) const
@@ -101,16 +97,12 @@ Fixed Fixed::operator-(Fixed const &op) const
 
 Fixed Fixed::operator*(Fixed const &op) const
 {
-    Fixed res;
-    res.setRawBits(this->pfix * op.getRawBits());
-    return (res);
+    return (Fixed(toFloat() * op.toFloat()));
 }
 
 Fixed Fixed::operator/(Fixed const &op) const
 {
-    Fixed res;
-    res.setRawBits(this->pfix / op.getRawBits());
-    return (res);
+    return (Fixed(toFloat() / op.toFloat()));
 }
 
 Fixed& Fixed::operator++()
@@ -172,8 +164,7 @@ int Fixed::toInt(void) const
     return ((int)this->pfix >> this->b);
 }
 
-std::ostream& operator<<(std::ostream &os, const Fixed& op)
+std::ostream& operator<<(std::ostream &os, Fixed const &op)
 {
-    os << op.getRawBits();
-    return (os);
+    return (os << op.toFloat());
 }

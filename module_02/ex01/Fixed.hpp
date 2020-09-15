@@ -4,16 +4,14 @@
 #include <iostream>
 #include <math.h>
 
-class Fixed;
-
 class Fixed {
     private:
-        int pfix;
-        const static int b = 8;
+        int _value;
+        const static int _BIT_COUNT;
     public:
-        Fixed();
+        Fixed(void);
         Fixed(const int i);
-        Fixed(const float f);
+        Fixed(const float value);
         Fixed(const Fixed &copy);
         ~Fixed();
 

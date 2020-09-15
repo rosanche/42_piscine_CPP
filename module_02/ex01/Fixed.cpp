@@ -1,63 +1,60 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed() 
+const int Fixed::_BIT_COUNT = 8;
+
+Fixed::Fixed(void) 
 { 
-    std::cout << "Default constructor called" << std::endl;
-    this->pfix = 0;
+    this->_value = 0;
 }
 
 Fixed::Fixed(const int i)
 {
-    this->pfix = i << this->b;
+    this->_value = i << this->_BIT_COUNT;
 }
 
-Fixed::Fixed(const float f)
+Fixed::Fixed(const float value)
 {
-    this->pfix = roundf(f * (1 << this->b));
+    this->_value = roundf(value * (1 << _BIT_COUNT));
 }
 
 Fixed::Fixed(const Fixed &copy) 
 {
-    std::cout << "Copy constructor called" << std::endl;
     *this = copy;
 }
 
 Fixed::~Fixed()
 {
-    std::cout << "Destructor called" << std::endl;
+    this->_value = 0;
 }
 
 void Fixed::setRawBits(int const raw)
 {
-    this->pfix = raw;
+    this->_value = raw;
 }
 
 Fixed &Fixed::operator=(const Fixed &op)
 {
-    std::cout << "Assignation operator called" << std::endl;
     if (this != &op)
-        this->pfix = op.getRawBits();
+        this->_value = op.getRawBits();
     return (*this);
 }
 
 int Fixed::getRawBits(void) const 
 {
-    std::cout << "getRawBits member function called" << std::endl;
-    return (this->pfix);
+    return (this->_value);
 }
 
 float Fixed::toFloat(void) const
 {
-    return ((float)this->pfix / (1 << this->b));
+    return ((float)this->_value / (1 << this->_BIT_COUNT));
 }
 
 int Fixed::toInt(void) const
 {
-    return ((int)this->pfix >> this->b);
+    return ((int)this->_value >> this->_BIT_COUNT);
 }
 
 std::ostream& operator<<(std::ostream &os, Fixed const &op)
 {
-    os << op.getRawBits();
-    return (os);
+    return (os << op.toFloat());
 }
