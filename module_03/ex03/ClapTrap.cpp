@@ -61,7 +61,7 @@ void ClapTrap::meleeAttack(std::string const & target)
         this->ener_p -= this->me_att_d;
         this->ener_p = this->ener_p > 0 ? this->ener_p : 0;
         std::cout << "FR4G-TP ClapTrap " << this->name << " attaque ";
-        std::cout << target << " à distance, causant " << this->me_att_d << " points de dégâts !" << std::endl;
+        std::cout << target << " en mêlé, causant " << this->me_att_d << " points de dégâts !" << std::endl;
     }
     else
         std::cout << "FR4G-TP ClapTrap " << this->name << " n'a pas assez d'énergie pour attaquer!" << std::endl;

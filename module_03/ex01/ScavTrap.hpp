@@ -2,6 +2,8 @@
 #define SCAVTRAP_HPP
 
 #include <iostream>
+#include <string>
+#include <sstream>
 
 class ScavTrap {
     private:

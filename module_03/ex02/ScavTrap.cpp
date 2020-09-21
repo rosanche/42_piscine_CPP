@@ -31,20 +31,21 @@ ScavTrap::~ScavTrap() { std::cout << "Destructor ScavTrap called" << std::endl; 
 
 void ScavTrap::challengeNewcomer()
 {
-    int res = 3;
+    std::string res;
+    res[0] = '3';
     std::string choice[3] = { 
         "Défendre jusqu'à sa mort",
         "Partir comme un lâche",
         "Aller dans le camp adverse"
     };
-    while (res > 2)
+    while (res[0] > '2')
     {
         std::cout << "Choisissez --0-- " << choice[0] << std::endl;
         std::cout << "Choisissez --1-- " << choice[1] << std::endl;
         std::cout << "Choisissez --2-- " << choice[2] << std::endl;
-        std::cin >> res;
-        if (res > 2)
+        std::getline(std::cin, res);
+        if (res[0] > '2')
             std::cout << "Choix incorrect" << std::endl;
     }
-    std::cout << "ScavTrap va : " << choice[res] << std::endl;
+    std::cout << "ScavTrap va : " << choice[res[0] - 48] << std::endl;
 }
