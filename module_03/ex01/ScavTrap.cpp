@@ -87,14 +87,15 @@ void ScavTrap::challengeNewcomer()
         "Partir comme un lâche",
         "Aller dans le camp adverse"
     };
-    while (res[0] > '2')
+    while (res[0] > '2' && !res[1])
     {
         std::cout << "Choisissez --0-- " << choice[0] << std::endl;
         std::cout << "Choisissez --1-- " << choice[1] << std::endl;
         std::cout << "Choisissez --2-- " << choice[2] << std::endl;
         std::getline(std::cin, res);
-        if (res[0] > '2')
+        if (res[0] > '2' || res[1])
             std::cout << "Choix incorrect" << std::endl;
     }
-    std::cout << "ScavTrap va : " << choice[res[0] - 48] << std::endl;
+    std::cout << "ScavTrap va : " << (res[0] > '2' || res[1] ?
+    "rien faire" : choice[res[0] - 48]) << std::endl;
 }
