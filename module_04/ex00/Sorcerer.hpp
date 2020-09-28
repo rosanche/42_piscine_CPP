@@ -8,6 +8,7 @@ class Sorcerer {
     private:
         std::string name;
         std::string title;
+        Sorcerer();
 
     public:
         Sorcerer(std::string name, std::string title);

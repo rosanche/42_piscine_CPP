@@ -1,53 +1,108 @@
 #include "Character.hpp"
 
-Character::Character() { }
-Character::Character(std::string name) : name(name) { }
-
-Character& Character::operator=(const Character &copy)
+Character::Character() :
+        _name("")
 {
-    if (this != &copy)
-        *this = copy;
-    return (*this);
+	zeroInventory();
 }
 
-Character::Character(const Character &copy)
+Character::Character(std::string name) :
+        _name(name)
 {
+	zeroInventory();
+}
 
-    this->name = std::string(copy.getName());
-    for (int i = 0; i < 4; i++)
-        if (this->materias[i])
-            delete materias[i];
-    for (int i = 0; i < 4; i++)
-        if (copy.materias[i])
-            this->materias[i] = copy.materias[i]->clone();
+Character::Character(const Character &other) :
+        _name(other._name)
+{
+	zeroInventory();
+
+	this->operator =(other);
 }
 
 Character::~Character()
 {
-    for (int i = 0; i < 4; i++)
-        if (this->materias[i])
-            delete materias[i];
+	for (int index = 0; index < INVENTORY_SIZE; ++index)
+	{
+		AMateria *&at = _inventory[index];
+
+		if (at)
+			delete at;
+
+		at = NULL;
+	}
 }
 
-std::string const & Character::getName() const { return (this->name); }
-
-void Character::equip(AMateria* m)
+Character&
+Character::operator=(const Character &other)
 {
-    int v = 0;
-    while (this->materias[v])
-        v++;
-    if (v < 4)
-        this->materias[v] = m->clone();
+	if (this != &other)
+	{
+		this->_name = other._name;
+
+		for (int index = 0; index < INVENTORY_SIZE; ++index)
+		{
+			AMateria *&at = _inventory[index];
+			AMateria *otherAt = other._inventory[index];
+
+			if (at)
+				delete at;
+
+			at = NULL;
+
+			if (otherAt)
+				at = otherAt->clone();
+		}
+	}
+
+	return (*this);
 }
 
-void Character::unequip(int idx)
+void
+Character::zeroInventory()
 {
-    if (this->materias[idx])
-        this->materias[idx] = NULL;
+	for (int index = 0; index < INVENTORY_SIZE; ++index)
+		_inventory[index] = NULL;
 }
 
-void Character::use(int idx, ICharacter& target)
+const std::string&
+Character::getName() const
 {
-    if (idx >= 0 && idx < 4)
-        this->materias[idx]->use(target);
+	return (this->_name);
+}
+
+void
+Character::equip(AMateria *materia)
+{
+	for (int index = 0; index < INVENTORY_SIZE; ++index)
+	{
+		AMateria *&at = _inventory[index];
+
+		if (!at)
+		{
+			at = materia;
+			break;
+		}
+	}
+}
+
+void
+Character::unequip(int index)
+{
+	if (index < 0 || index >= INVENTORY_SIZE)
+		return;
+
+	_inventory[index] = NULL;
+}
+
+void
+Character::use(int index, ICharacter &target)
+{
+	if (index < 0 || index >= INVENTORY_SIZE)
+		return;
+
+	AMateria *at = _inventory[index];
+
+	if (at)
+		at->use(target);
 }

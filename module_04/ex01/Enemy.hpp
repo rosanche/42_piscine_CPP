@@ -9,8 +9,9 @@ class Enemy
         std::string type;
         int hp;
 
-    public:
         Enemy();
+
+    public:
         Enemy(int hp, std::string const & type);
         virtual ~Enemy() = 0;
         Enemy(const Enemy &copy);

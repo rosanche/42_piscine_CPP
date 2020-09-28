@@ -1,5 +1,6 @@
 #include "Sorcerer.hpp"
 
+Sorcerer::Sorcerer() {};
 Sorcerer::Sorcerer(std::string name, std::string title)
 : name(name), title(title) 
 {

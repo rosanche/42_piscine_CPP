@@ -1,20 +1,20 @@
-#ifndef ICE_HPP
-# define ICE_HPP
+#ifndef ICE_HPP_
+# define ICE_HPP_
 
-#include "AMateria.hpp"
-#include "Character.hpp"
-#include <iostream>
+# include "AMateria.hpp"
 
-class Ice : public AMateria {
-    public:
-        Ice();
-        ~Ice();
-        Ice(const Ice &copy);
+class Ice : public AMateria
+{
+	public:
+		Ice();
+		Ice(const Ice &other);
 
-        Ice& operator=(const Ice &copy);
+		virtual ~Ice();
 
-        AMateria* clone() const;
-        void use(ICharacter& target);
+		Ice& operator=(const Ice &other);
+
+		virtual AMateria* clone() const;
+		virtual void use(ICharacter &target);
 };
 
-#endif
+#endif /* ICE_HPP_ */

@@ -1,51 +1,86 @@
 #include "MateriaSource.hpp"
 
-MateriaSource::MateriaSource() { }
-
-MateriaSource& MateriaSource::operator=(const MateriaSource &copy)
+MateriaSource::MateriaSource()
 {
-    if (this != &copy)
-        *this = copy;
-    return (*this);
+	zeroInventory();
 }
 
-MateriaSource::MateriaSource(const MateriaSource &copy)
+MateriaSource::MateriaSource(const MateriaSource &other)
 {
-    for (int i = 0; i < 4; i++)
-        if (this->materiaS[i])
-            delete materiaS[i];
-    for (int i = 0; i < 4; i++)
-        if (copy.materiaS[i])
-            this->materiaS[i] = copy.materiaS[i]->clone();
+	zeroInventory();
+
+	this->operator =(other);
 }
 
 MateriaSource::~MateriaSource()
 {
-    for (int i = 0; i < 4; i++)
-        if (this->materiaS[i])
-            delete materiaS[i];
+	for (int index = 0; index < INVENTORY_SIZE; ++index)
+	{
+		AMateria *&at = _inventory[index];
+
+		if (at)
+			delete at;
+
+		at = NULL;
+	}
 }
 
-void MateriaSource::learnMateria(AMateria *mat)
+MateriaSource&
+MateriaSource::operator=(const MateriaSource &other)
 {
-    int i = 0;
-    while (this->materiaS[i])
-        i++;
-    if (i < 4)
-        this->materiaS[i] = mat->clone();
+	if (this != &other)
+	{
+		for (int index = 0; index < INVENTORY_SIZE; ++index)
+		{
+			AMateria *&at = _inventory[index];
+			AMateria *otherAt = other._inventory[index];
+
+			if (at)
+				delete at;
+
+			at = NULL;
+
+			if (otherAt)
+				at = otherAt->clone();
+		}
+
+	}
+
+	return (*this);
 }
 
-AMateria* MateriaSource::createMateria(std::string const & type)
+void
+MateriaSource::zeroInventory()
 {
-    AMateria *mater;
-    for (int i = 0; this->materiaS[i]; i++)
-    {
-        if (this->materiaS[i] && this->materiaS[i]->getType() == type)
-        {
-            mater = this->materiaS[i]->clone();
-            return (mater);
-        }
-    }
-    return (NULL);
+	for (int index = 0; index < INVENTORY_SIZE; ++index)
+		_inventory[index] = NULL;
 }
 
+void
+MateriaSource::learnMateria(AMateria *materia)
+{
+	for (int index = 0; index < INVENTORY_SIZE; ++index)
+	{
+		AMateria *&at = _inventory[index];
+
+		if (!at)
+		{
+			at = materia;
+			break;
+		}
+	}
+}
+
+AMateria*
+MateriaSource::createMateria(const std::string &type)
+{
+	for (int index = 0; index < INVENTORY_SIZE; ++index)
+	{
+		AMateria *at = _inventory[index];
+
+		if (at && at->getType() == type)
+			return (at->clone());
+	}
+
+	return (NULL);
+}

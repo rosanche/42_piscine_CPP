@@ -1,30 +1,34 @@
-#ifndef AMATERIA_HPP
-# define AMATERIA_HPP
+#ifndef AMATERIA_HPP_
+# define AMATERIA_HPP_
 
-#include <iostream>
-#include "ICharacter.hpp"
+# include <iostream>
 
-class AMateria;
+class ICharacter;
 
 class AMateria
 {
-    private:
-        std::string     type;
-        unsigned int    _xp;
-    public:
-        // Coplien
-        AMateria(std::string const & type);
-        AMateria(const AMateria&);
-        virtual ~AMateria();
-        AMateria &operator=(const AMateria& copy);
+	private:
+		std::string _type;
+		unsigned int _xp;
 
-        // Getter - Setter
-        std::string const & getType() const;        // Returns the materia type
-        unsigned int        getXP() const;          // Returns the Materia'XP
+	protected:
+		AMateria();
 
-        // Additionnal
-        virtual AMateria*   clone() const = 0;
-        virtual void        use(ICharacter& target);
+	public:
+		AMateria(std::string const &type);
+		AMateria(const AMateria &other);
+
+		virtual ~AMateria();
+
+		AMateria& operator=(const AMateria &other);
+
+		virtual AMateria* clone() const = 0;
+		virtual void use(ICharacter &target);
+
+		std::string const& getType() const;
+		unsigned int getXp() const;
 };
 
-#endif
+# include "ICharacter.hpp"
+
+#endif /* AMATERIA_HPP_ */

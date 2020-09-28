@@ -4,19 +4,20 @@
 #include <iostream>
 
 class Victim {
-    private:
+    protected:
         std::string name;
+        Victim();
 
     public:
         Victim(std::string name);
         Victim(const Victim &copy);
-        ~Victim();
+        virtual ~Victim();
         
         Victim&   operator=(const Victim &copy);
         
         std::string getName() const;
         
-        void getPolymorphed() const;
+        virtual void getPolymorphed() const;
 };
 
 std::ostream&    operator<<(std::ostream& os, const Victim& copy);

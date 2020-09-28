@@ -5,16 +5,16 @@
 #include "Victim.hpp"
 
 class Peon : public Victim {
-    private:
-        std::string name;
+    protected:
+        Peon();
 
     public:
         Peon(std::string name);
         Peon(const Peon &copy);
-        ~Peon();
+        virtual ~Peon();
         
         Peon&   operator=(const Peon &copy);
-        void    getPolymorphed() const;
+        virtual void    getPolymorphed() const;
 };
 
 #endif

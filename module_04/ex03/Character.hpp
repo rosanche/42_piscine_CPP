@@ -1,28 +1,36 @@
-#ifndef CHARACTER_HPP
-# define CHARACTER_HPP
+#ifndef CHARACTER_HPP_
+# define CHARACTER_HPP_
 
-#include <iostream>
-#include "AMateria.hpp"
-#include "ICharacter.hpp"
+# include "ICharacter.hpp"
+
+# define INVENTORY_SIZE 4
 
 class Character : public ICharacter
 {
-    private:
-        std::string name;
-        AMateria *materias[4];
+	private:
+		std::string _name;
+		AMateria *_inventory[INVENTORY_SIZE];
 
-    public:
-        Character();
-        Character(std::string name);
-        ~Character();
-        Character(const Character &copy);
+		void zeroInventory();
 
-        Character& operator=(const Character &copy);
+	protected:
+		Character();
 
-        std::string const & getName() const;
-        void equip(AMateria* m);
-        void unequip(int idx);
-        void use(int idx, ICharacter& target);
+	public:
+		Character(std::string name);
+		Character(const Character &other);
+
+		virtual ~Character();
+
+		Character& operator=(const Character &other);
+
+		virtual std::string const& getName() const;
+
+		virtual void equip(AMateria *materia);
+
+		virtual void unequip(int index);
+
+		virtual void use(int index, ICharacter &target);
 };
 
-#endif
+#endif /* CHARACTER_HPP_ */

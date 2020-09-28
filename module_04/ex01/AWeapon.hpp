@@ -10,8 +10,9 @@ class AWeapon
         int apcost;
         int damage;
 
-    public:
         AWeapon();
+
+    public:
         AWeapon(std::string const & name, int apcost, int damage);
         ~AWeapon();
         AWeapon(const AWeapon &copy);

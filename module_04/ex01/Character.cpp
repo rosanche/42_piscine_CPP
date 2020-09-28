@@ -31,7 +31,7 @@ void Character::attack(Enemy *enemy)
     if (apcost > 0)
     {
         apcost -= this->getArm()->getAPCost();
-        std::cout << this->getName() << " attaque " << enemy->getType() << " with a ";
+        std::cout << this->getName() << " hasttaque " << enemy->getType() << " with a ";
         std::cout << this->arm->getName() << std::endl;
         arm->attack();
         enemy->takeDamage(arm->getDamage());

@@ -12,8 +12,9 @@ class Character
         int apcost;
         AWeapon *arm;
 
-    public:
         Character();
+
+    public:
         Character(std::string const & name);
         ~Character();
         Character(const Character &copy);
