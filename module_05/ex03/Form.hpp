@@ -1,48 +1,93 @@
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef FORM_HPP_
+# define FORM_HPP_
 
+#include <exception>
 #include <iostream>
-#include "Bureaucrat.hpp"
 
 class Bureaucrat;
-class Form;
 
-class Form {
-    private:
-        const std::string name;
-        bool signeup;
-        int gradeSign;
-        int gradeExecute;
-        const std::string target;
-    
-    public:
-        Form();
-        Form(const std::string name, int const gradeSign, int const gradeExecute, const std::string target);
-        Form(const Form &copy);
-        ~Form();
+# include "Bureaucrat.hpp" // Include late dependency
 
-        Form& operator=(const Form &copy);
+# define FORM_IMPL_COUNT 3
 
-        std::string getName() const;
-        int         getGradeSign() const;
-        int         getGradeExecute() const;
-        bool        getSignup() const;
-        std::string getTarget() const;
-        
-        void        beSigned(const Bureaucrat &crat);
-        virtual void        beExecuted() const;
-        void        execute(Bureaucrat const & executor) const;
+class Form
+{
+	private:
+		const std::string _name;
+		const std::string _target;
+		bool _signed;
+		const int _requiredGradeToSign;
+		const int _requiredGradeToExecute;
 
-        class GradeTooLowException : public std::exception {
-            public:
-                virtual const char* what() const throw();
-        };
-        class GradeTooHighException : public std::exception {
-            public:
-                virtual const char* what() const throw();
-        };
+		int ensureGradeRange(int grade, bool sign);
+
+	public:
+		Form();
+		Form(const Form &other);
+		Form(const std::string name, const std::string target, int requiredGradeToSign, int requiredGradeToExecute);
+
+		virtual ~Form();
+
+		Form& operator=(const Form &other);
+
+		void beSigned(Bureaucrat &bureaucrat);
+
+		virtual void execute(Bureaucrat const &executor) const = 0;
+
+		const std::string& getName() const;
+		const std::string& getTarget() const;
+		int getRequiredGradeToExecute() const;
+		int getRequiredGradeToSign() const;
+		bool isSigned() const;
+
+		class GradeTooHighException : public std::exception
+		{
+			private:
+				bool _sign;
+
+			public:
+				GradeTooHighException(void);
+				GradeTooHighException(bool sign);
+				GradeTooHighException(const GradeTooHighException &other);
+
+				virtual ~GradeTooHighException(void) throw ();
+
+				GradeTooHighException& operator=(const GradeTooHighException &other);
+
+				virtual const char* what() const throw ();
+		};
+
+		class GradeTooLowException : public std::exception
+		{
+			private:
+				bool _sign;
+
+			public:
+				GradeTooLowException(void);
+				GradeTooLowException(bool sign);
+				GradeTooLowException(const GradeTooLowException &other);
+
+				virtual ~GradeTooLowException(void) throw ();
+
+				GradeTooLowException& operator=(const GradeTooLowException &other);
+
+				virtual const char* what() const throw ();
+		};
+
+		class NotSignedException : public std::exception
+		{
+			public:
+				NotSignedException(void);
+				NotSignedException(const NotSignedException &other);
+
+				virtual ~NotSignedException(void) throw ();
+
+				NotSignedException& operator=(const NotSignedException &other);
+
+				virtual const char* what() const throw ();
+		};
 };
 
-std::ostream&       operator<<(std::ostream &os, const Form &copy);
+std::ostream& operator<<(std::ostream& outStream, const Form& form);
 
-#endif
+#endif /* FORM_HPP_ */

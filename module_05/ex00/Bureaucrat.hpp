@@ -22,10 +22,22 @@ class Bureaucrat {
         void        gradeLower();
         class GradeTooLowException : public std::exception {
             public:
+                GradeTooLowException();
+				GradeTooLowException(const GradeTooLowException &copy);
+
+				virtual ~GradeTooLowException() throw ();
+
+				GradeTooLowException& operator=(const GradeTooLowException &copy);
                 virtual const char* what() const throw();
         };
         class GradeTooHighException : public std::exception {
             public:
+                GradeTooHighException();
+				GradeTooHighException(const GradeTooHighException &copy);
+
+				virtual ~GradeTooHighException() throw ();
+
+				GradeTooHighException& operator=(const GradeTooHighException &copy);
                 virtual const char* what() const throw();
         };
 };

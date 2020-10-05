@@ -1,22 +1,40 @@
-#ifndef INTERN_HPP
-# define INTERN_HPP
+#ifndef INTERN_HPP_
+# define INTERN_HPP_
 
-#include <iostream>
-#include "Form.hpp"
+# include "Form.hpp"
 
-class Form;
-class Intern;
+class Intern
+{
+	private:
+		static const std::string FORM_NAMES[FORM_IMPL_COUNT];
+		static Form *(*FORM_FACTORIES[FORM_IMPL_COUNT])(const std::string);
 
-class Intern {
-    public:
-        Intern();
-        Intern();
-        Intern(const Intern &copy);
-        ~Intern();
+	public:
+		Intern();
+		Intern(const Intern &other);
 
-        Form*   makeForm(std::string const name, std::string const target);
+		virtual ~Intern();
+
+		Intern& operator=(const Intern &other);
+
+		Form *makeForm(const std::string name, const std::string target) const;
+
+		class FormNotFoundException : public std::exception
+		{
+			private:
+				const std::string _message;
+
+			public:
+				FormNotFoundException(void);
+				FormNotFoundException(const std::string formName);
+				FormNotFoundException(const FormNotFoundException &other);
+
+				virtual ~FormNotFoundException(void) throw ();
+
+				FormNotFoundException& operator=(const FormNotFoundException &other);
+
+				virtual const char* what() const throw ();
+		};
 };
 
-std::ostream&       operator<<(std::ostream &os, const Intern &copy);
-
-#endif
+#endif /* INTERN_HPP_ */

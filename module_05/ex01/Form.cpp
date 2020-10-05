@@ -43,9 +43,29 @@ const char* Form::GradeTooLowException::what() const throw()
     return ("Error: Grade too Low!");
 }
 
+Form::GradeTooLowException::GradeTooLowException() { }
+Form::GradeTooLowException::GradeTooLowException(const GradeTooLowException &copy) { *this = copy; }
+Form::GradeTooLowException::~GradeTooLowException() throw() { }
+Form::GradeTooLowException& Form::GradeTooLowException::operator=(const GradeTooLowException &copy)
+{
+    if (this != &copy)
+        *this = copy;
+    return (*this);
+}
+
 const char* Form::GradeTooHighException::what() const throw()
 {
     return ("Error: Grade too High!");
+}
+
+Form::GradeTooHighException::GradeTooHighException() { }
+Form::GradeTooHighException::GradeTooHighException(const GradeTooHighException &copy) { *this = copy; }
+Form::GradeTooHighException::~GradeTooHighException() throw() { }
+Form::GradeTooHighException& Form::GradeTooHighException::operator=(const GradeTooHighException &copy)
+{
+    if (this != &copy)
+        *this = copy;
+    return (*this);
 }
 
 void        Form::beSigned(const Bureaucrat &crat)

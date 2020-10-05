@@ -1,25 +1,41 @@
-#ifndef SHRUBBERYCREATIONFORM_HPP
-# define SHRUBBERYCREATIONFORM_HPP
+#ifndef SHRUBBERYCREATIONFORM_HPP_
+# define SHRUBBERYCREATIONFORM_HPP_
 
-#include <iostream>
-#include <fstream>
-#include "Form.hpp"
+# include <exception>
 
-class ShrubberyCreationForm;
+# include "Form.hpp"
 
-class ShrubberyCreationForm : public Form {
-    private:
-        std::string target;
+class ShrubberyCreationForm : public Form
+{
+	public:
+		ShrubberyCreationForm();
+		ShrubberyCreationForm(const std::string target);
+		ShrubberyCreationForm(const ShrubberyCreationForm &other);
 
-    public:
-        ShrubberyCreationForm();
-        ShrubberyCreationForm(const std::string target);
-        ShrubberyCreationForm(const ShrubberyCreationForm &copy);
-        ~ShrubberyCreationForm();
+		virtual ~ShrubberyCreationForm();
 
-        ShrubberyCreationForm& operator=(const ShrubberyCreationForm &copy);
+		ShrubberyCreationForm& operator=(const ShrubberyCreationForm &other);
 
-        void        beExecuted() const;
+		virtual void execute(Bureaucrat const &executor) const;
+
+		static Form *factory(const std::string target);
+
+		class IOException : public std::exception
+		{
+			private:
+				const int _errno;
+
+			public:
+				IOException(void);
+				IOException(int errorNo);
+				IOException(const IOException &other);
+
+				virtual ~IOException(void) throw ();
+
+				IOException& operator=(const IOException &other);
+
+				virtual const char* what() const throw ();
+		};
 };
 
-#endif
+#endif /* SHRUBBERYCREATIONFORM_HPP_ */

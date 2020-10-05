@@ -1,25 +1,46 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() {}
-
-PresidentialPardonForm::PresidentialPardonForm(const std::string target) 
-: Form("Robotomy", 72, 45, target)
-{}
-
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &copy) 
-: Form(copy.getName(), copy.getGradeSign(), copy.getGradeExecute(), copy.getTarget()) 
-{ *this = copy; }
-
-PresidentialPardonForm::~PresidentialPardonForm() { }
-
-PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm &copy)
+PresidentialPardonForm::PresidentialPardonForm() :
+		Form()
 {
-    if (this != &copy)
-        *this = copy;
-    return (*this);
 }
 
-void        PresidentialPardonForm::beExecuted() const
+PresidentialPardonForm::PresidentialPardonForm(const std::string target) :
+		Form("Presidential Pardon", target, 25, 5)
 {
-    std::cout << this->getTarget() << " was just pardoned by Zafod Beeblebrox" << std::endl;
+}
+
+PresidentialPardonForm::~PresidentialPardonForm()
+{
+}
+
+PresidentialPardonForm::PresidentialPardonForm(
+        const PresidentialPardonForm &other) :
+		Form(other)
+{
+	this->operator =(other);
+}
+
+PresidentialPardonForm&
+PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
+{
+	Form::operator =(other);
+
+	return (*this);
+}
+
+void
+PresidentialPardonForm::execute(const Bureaucrat &executor) const
+{
+	Form::execute(executor);
+
+	std::cout << getTarget() //
+	        << " has been forgiven by Zafod Beeblebrox" //
+	        << std::endl;
+}
+
+Form*
+PresidentialPardonForm::factory(const std::string target)
+{
+	return new PresidentialPardonForm(target);
 }

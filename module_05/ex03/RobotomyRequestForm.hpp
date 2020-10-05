@@ -1,25 +1,22 @@
-#ifndef ROBOTOMYREQUESTFORM_HPP
-# define ROBOTOMYREQUESTFORM_HPP
+#ifndef ROBOTOMYREQUESTFORM_HPP_
+# define ROBOTOMYREQUESTFORM_HPP_
 
-#include <iostream>
-#include <fstream>
-#include "Form.hpp"
+# include "Form.hpp"
 
-class RobotomyRequestForm;
+class RobotomyRequestForm : public Form
+{
+	public:
+		RobotomyRequestForm();
+		RobotomyRequestForm(const std::string target);
+		RobotomyRequestForm(const RobotomyRequestForm &other);
 
-class RobotomyRequestForm : public Form {
-    private:
-        std::string target;
+		virtual ~RobotomyRequestForm();
 
-    public:
-        RobotomyRequestForm();
-        RobotomyRequestForm(const std::string target);
-        RobotomyRequestForm(const RobotomyRequestForm &copy);
-        ~RobotomyRequestForm();
+		RobotomyRequestForm& operator=(const RobotomyRequestForm &other);
 
-        RobotomyRequestForm& operator=(const RobotomyRequestForm &copy);
+		virtual void execute(Bureaucrat const &executor) const;
 
-        void        beExecuted() const;
+		static Form *factory(const std::string target);
 };
 
-#endif
+#endif /* ROBOTOMYREQUESTFORM_HPP_ */

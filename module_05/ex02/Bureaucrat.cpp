@@ -32,6 +32,20 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &copy)
 std::string Bureaucrat::getName() const { return (this->name); }
 int         Bureaucrat::getGrade() const { return (this->grade); }
 
+void        Bureaucrat::executeForm(Form const &form)
+{
+    try
+    {
+        form.execute(*this);
+        std::cout << this->name << " executs " << form.getName() << std::endl;
+    }
+    catch (std::string &e)
+    {
+        std::cout << this->name << "  execute " << form.getName();
+		std::cout << " because " << e << std::endl;
+    }
+}
+
 void        Bureaucrat::gradeHigher()
 {
     try 
@@ -80,28 +94,34 @@ void        Bureaucrat::signForm(Form &form)
     }
 }
 
-void        Bureaucrat::executeForm(Form const &form)
-{
-    try
-    {
-        form.execute(*this);
-        std::cout << this->name << " executs " << form.getName() << std::endl;
-    }
-    catch (std::string &e)
-    {
-        std::cout << this->name << " cants execute " << form.getName();
-		std::cout << " because " << e << std::endl;
-    }
-}
-
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
     return ("Error: Grade too Low!");
 }
 
+Bureaucrat::GradeTooLowException::GradeTooLowException() { }
+Bureaucrat::GradeTooLowException::GradeTooLowException(const GradeTooLowException &copy) { *this = copy; }
+Bureaucrat::GradeTooLowException::~GradeTooLowException() throw() { }
+Bureaucrat::GradeTooLowException& Bureaucrat::GradeTooLowException::operator=(const GradeTooLowException &copy)
+{
+    if (this != &copy)
+        *this = copy;
+    return (*this);
+}
+
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
     return ("Error: Grade too High!");
+}
+
+Bureaucrat::GradeTooHighException::GradeTooHighException() { }
+Bureaucrat::GradeTooHighException::GradeTooHighException(const GradeTooHighException &copy) { *this = copy; }
+Bureaucrat::GradeTooHighException::~GradeTooHighException() throw() { }
+Bureaucrat::GradeTooHighException& Bureaucrat::GradeTooHighException::operator=(const GradeTooHighException &copy)
+{
+    if (this != &copy)
+        *this = copy;
+    return (*this);
 }
 
 std::ostream&       operator<<(std::ostream &os, const Bureaucrat &copy)

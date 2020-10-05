@@ -3,7 +3,7 @@
 PresidentialPardonForm::PresidentialPardonForm() {}
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string target) 
-: Form("Robotomy", 72, 45, target)
+: Form("PresidentialPardon", 72, 45, target)
 {}
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &copy) 
