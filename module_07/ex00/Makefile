@@ -5,6 +5,7 @@ HPP=-I whatever.hpp
 FLAGS= -Wall -Wextra -Werror $(HPP)
 
 SRC=whatever.cpp \
+	main.cpp
 
 OBJ=$(SRC:.cpp=.o)
 

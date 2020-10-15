@@ -5,6 +5,7 @@ HPP=-I iter.hpp
 FLAGS= -Wall -Wextra -Werror $(HPP)
 
 SRC=iter.cpp \
+	main.cpp
 
 OBJ=$(SRC:.cpp=.o)
 

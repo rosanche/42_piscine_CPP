@@ -1,10 +1,10 @@
 NAME=array
 
-HPP=-I iter.hpp
+HPP=-I Array.hpp
 
 FLAGS= -Wall -Wextra -Werror $(HPP)
 
-SRC=iter.cpp \
+SRC=main.cpp \
 
 OBJ=$(SRC:.cpp=.o)
 

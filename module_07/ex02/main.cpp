@@ -31,8 +31,4 @@ int main()
     std::cout << "Int array content : " << std::endl;
     for (int i = 0; i < j.size(); i++)
         std::cout << "intassign[" << i << "] = " << intassign[i] << std::endl;
-
-    std::cout << std::endl;
-    std::cout << "See out of the bound : " << std::endl;
-    std::cout << "jx = " << j[j.size() + 1] << std::endl;
 }
